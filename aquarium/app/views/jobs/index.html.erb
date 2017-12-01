@@ -1,0 +1,20 @@
+<% provide(:title, 'Jobs') %>
+
+<div class="row-fluid">
+
+  <div class="span3">
+    <%= render partial: "sidebar" %>
+  </div>
+
+  <div class="span9">
+    <%= render partial: "jobs" %>
+  </div>
+
+</div>
+
+<script>
+  $('#tabs a:first').tab('show');
+ 
+  jl = new JobLister();
+
+</script>

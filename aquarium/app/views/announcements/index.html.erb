@@ -1,0 +1,43 @@
+<% provide(:title, 'Announcements') %>
+
+<% content_for :controller do %>noCtrl<% end %>
+
+<% content_for :sidebar do %>
+  <div layout-padding %>
+    <%= render 'form' %>
+  </div>
+<% end %>
+
+<% content_for :main do %>
+
+  <div layout-padding>
+
+    <table class='table'>
+      <tr>
+        <th>Id</th>
+        <th>Title</th>
+        <th>Message</th>
+        <th>Active</th>
+        <th></th>
+        <th></th>
+      </tr>
+
+    <% @announcements.reverse.each do |announcement| %>
+      <tr>
+        <td><%= announcement.id %></td>
+        <td><%= announcement.title %></td>
+        <td><%= announcement.message %></td>
+        <% if announcement == @latest_announcement %>
+          <td><%= announcement.active %></td>
+        <% else %>
+          <td></td>
+        <% end %>
+        <td><%= link_to 'Edit', edit_announcement_path(announcement) %></td>
+        <td><%= link_to 'Destroy', announcement, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+    </table>
+
+  </div>
+
+<% end %>

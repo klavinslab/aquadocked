@@ -1,0 +1,21 @@
+<script>
+
+  if ( '<%= Rails.env %>' == 'rehearse' ) {
+
+    document.getElementById('logo').style.color = 'orange';
+    document.getElementById('header-bar').style.background = '#720';
+
+  } else if ( '<%= Rails.env %>' == 'production'  ) {
+
+    document.getElementById('logo').style.color = '#0f2';
+    document.getElementById('header-bar').style.background = '#02a';    
+
+  } else {
+
+    document.getElementById('logo').style.color = '#0f2';
+    document.getElementById('header-bar').style.background = 'rgb(63, 81, 181)';
+    document.getElementById('header-navbar').style.border = 'none';
+
+  }
+
+</script>

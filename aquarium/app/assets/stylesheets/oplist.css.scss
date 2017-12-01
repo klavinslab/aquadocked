@@ -1,0 +1,14 @@
+.oplist {
+  table {
+    table-layout: fixed;
+    .selector {
+      width: 20px;
+    }
+    .output {
+      width: 60%;
+    }
+    .id {
+      width: 50px;
+    }
+  }
+}

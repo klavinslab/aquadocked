@@ -1,0 +1,20 @@
+<% content_for :controller do %>noCtrl<% end %>
+
+<% content_for :main do %>
+
+  <div layout-padding layout="row">
+
+    <div flex="25"></div>
+
+    <div flex="50">
+      <h1>Edit Annoucement <%= @announcement.id %></h1>
+
+      <%= render 'form' %>
+
+      <%= link_to 'Cancel', announcements_path, class: 'md-button md-raised' %>
+
+    </div>
+
+  </div>
+
+<% end %>

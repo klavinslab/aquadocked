@@ -1,0 +1,113 @@
+<style>
+.medium {
+  width: 20%;
+}
+.large {
+  width: 33%;
+}
+.indent {
+  margin-left: 5px;
+}
+.users {
+  width: 100%;
+  margin: 0;
+}
+.budget-name {
+  font-size: 14pt;
+  margin-bottom: 0;
+}
+.selected-view {
+  background: #80d8ff;
+}
+</style>
+
+<%= content_for :controller do %>invoicesCtrl as invoicesCtrl<% end %>
+
+<%= content_for :specific_title do %>
+  Invoices &rang; 
+  <% if params[:all] %>
+    All
+  <% else %>
+    <%= current_user.name %>
+  <% end %>
+<% end %>
+
+<% content_for :sidebar do %>
+
+  <md-list ng-init="status.month = '<%= @monthly_invoices[0][:date] %>'">
+
+    <% @monthly_invoices.each do |invoices| %>
+
+      <md-list-item ng-click="status.month = '<%= invoices[:date] %>'"
+                    ng-class="status.month == '<%= invoices[:date] %>' ? 'md-body-2 selected-view' : 'md-body-2'">
+        <p><%= invoices[:date].strftime("%B %Y") %></p>
+        <span>
+        <% if params[:all] %>
+          <%= number_to_currency(invoices[:entries].collect { |e| e[:spent] }.inject{|s,x| s + x}) %>
+        <% end %>
+        </span>
+      </md-list-item>
+
+    <% end %>
+
+  </md-list>
+
+<% end %>
+
+<%= content_for :main do %>
+
+  <% @monthly_invoices.each do |invoices| %>
+
+    <md-content layout-padding ng-show="status.month == '<%= invoices[:date] %>'">
+
+      <h3>
+        <%= invoices[:date].strftime("%B %Y") %>
+        <% if params[:all] %>
+          : <%= number_to_currency(invoices[:entries].collect { |e| e[:spent] }.inject{|s,x| s + x}) %>
+        <% end %>
+      </h3>
+
+      <% invoices[:entries].collect { |account| account[:budget] }.uniq.each do |b| %>
+
+        <p class='indent budget-name'><b><%= link_to b.name, b %></b> (<%= b.contact %>): <%= b.description %> </p>
+
+        <table class='table table-condensed users' style="table-layout: fixed">
+          <tr>
+            <th></th>
+            <th></th>
+            <th>Labor</th>
+            <th>Materials</th>
+            <th>Overhead</th>
+            <th>Total</th>
+          </tr>
+          <% invoices[:entries].select { |account| account[:budget].id == b.id }.each do |entry| %>
+            <tr>
+              <td><%= entry[:user].name %> (<%= link_to "#{entry[:user].login}", entry[:user] %>)</td>
+              <td><i><%= entry[:invoice].in_progress ? "in progress" : entry[:invoice].status %></i></td>
+              <td><%= number_to_currency(entry[:spent_labor]) %></td>
+              <td><%= number_to_currency(entry[:spent_materials]) %></td>
+              <td><%= number_to_currency(entry[:spent] - (entry[:spent_labor] + entry[:spent_materials])) %></td>
+              <td><%= link_to number_to_currency(entry[:spent]), entry[:invoice] %></td>
+            </tr>
+          <% end %>
+          <% total_labor = invoices[:entries].select { |e| e[:budget].id == b.id }.collect { |e| e[:spent_labor] }.inject{|sum,x| sum+x} %>
+          <% total_materials = invoices[:entries].select { |e| e[:budget].id == b.id }.collect { |e| e[:spent_materials] }.inject{|sum,x| sum+x} %>
+          <% total = invoices[:entries].select { |e| e[:budget].id == b.id }.collect { |e| e[:spent] }.inject{|sum,x| sum+x} %>
+          <tr>
+          <td></td>
+          <td></td>
+            <td><b><%= number_to_currency(total_labor) %></b></td>
+            <td><b><%= number_to_currency(total_materials) %></b></td>
+            <td><b><%= number_to_currency(total - (total_labor + total_materials)) %></b></td>
+          <td><b><%= number_to_currency(total) %></b></td>
+          </tr>
+        </table>
+
+      <% end %>
+
+    </md-content>
+
+  <% end %>
+
+<% end %>
+

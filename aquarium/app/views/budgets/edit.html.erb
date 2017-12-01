@@ -1,0 +1,19 @@
+<%= content_for :controller do %>noCtrl<% end %>
+
+<% provide(:title, "Budget #{@budget.id}") %>
+
+<% content_for :main do %>
+
+  <div layout-padding>
+    <%= render 'form' %>
+  </div>
+
+<% end %>
+
+<% content_for :specific_title do %>
+  &rang; Edit
+<% end %>
+
+<% content_for :action1 do %>
+  <a href="/budgets" class='md-button md-raised md-button'>Cancel</a>
+<% end %>

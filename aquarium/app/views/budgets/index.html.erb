@@ -1,0 +1,46 @@
+<% provide(:title, 'Budgets') %>
+
+<%= content_for :controller do %>noCtrl<% end %>
+
+<% content_for :specific_title do %><% end %>
+
+<% content_for :sidebar do %>
+  <div flex layout-padding>
+    <br><br>
+    <%= render 'form' %>
+  </div>
+<% end %>
+
+<% content_for :main do %>
+
+  <div flex layout-padding>
+
+    <table class='table'>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Contact</th>  
+        <th>Users</th>      
+        <th></th>
+      </tr>
+
+      <% @budgets.each do |budget| %>
+        <tr>
+          <td><%= link_to budget.name, budget %></td>
+          <td><%= budget.description %></td>
+          <td><%= budget.contact %></td>        
+          <td>
+            <%= budget.user_budget_associations.collect { |uba|
+                uba.user.name
+              }.join(', ')
+            %>
+          </td>            
+          <td><%= link_to 'Edit', edit_budget_path(budget) %></td>
+        </tr>
+      <% end %>
+
+    </table>
+
+  </div>
+
+<% end %>
