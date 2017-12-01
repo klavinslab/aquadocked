@@ -7,7 +7,7 @@ Install the Aquarium development environment with Docker.
 ```bash
 git clone https://github.com/klavinslab/aquadocked/
 ```
-3. From inside `/aquadocked`, build the Aquarium image
+3. From inside `/aquadocked`, build the Aquarium image. Grab a coffee or check [HN](https://news.ycombinator.com/).
 ```bash
 docker build -f Dockerfile --force-rm -t aq ./
 ```
