@@ -11,6 +11,7 @@ git clone https://github.com/klavinslab/aquadocked/
 ```bash
 docker build -f Dockerfile --force-rm -t aq ./
 ```
+*You may need to prepend `sudo` to your `docker` commands if you haven't set up a "docker" user group.*
 4. Run the Aquarium image
 ```bash
 docker run -t -p 3000:3000 -p 3501:3501 aq
