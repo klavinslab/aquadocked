@@ -15,6 +15,6 @@ export AWS_REGION=""
 /bin/bash -l -c 'rake db:migrate' 
 
 # Start servers
-/bin/bash -l -c "rails runner 'Krill::Server.new.run(3501)' &"
+/bin/bash -l -c "rails runner 'Krill::Server.new.run(3500)' &"
 /bin/bash -l -c 'rails s'
 

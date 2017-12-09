@@ -15,7 +15,7 @@ docker build -f Dockerfile --force-rm -t aq ./
 
 4. Run the Aquarium image
 ```bash
-docker run -t -p 3000:3000 -p 3501:3501 aq
+docker run -t -p 3000:3000 aq
 ```
 5. Connect to it at [localhost:3000](localhost:3000)!
 
