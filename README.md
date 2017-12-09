@@ -17,7 +17,7 @@ docker build -f Dockerfile --force-rm -t aq ./
 ```bash
 docker run -t -p 3000:3000 aq
 ```
-5. Connect to it at [localhost:3000](localhost:3000)!
+5. Connect to it at [localhost:3000](localhost:3000)! Username `neptune`, password `aquarium`
 
 
 ## Help! My Docker container is still running even though I did Ctrl+C!
